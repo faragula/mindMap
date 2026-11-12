@@ -1,0 +1,13 @@
+# dependencies
+/node_modules
+
+# build
+/dist/
+
+# env files — .env.local drží klíče a nesmí do gitu
+.env*
+!.env.example
+
+# misc
+.DS_Store
+npm-debug.log*
