@@ -29,6 +29,7 @@ jobs:
 
       # Bez těchto proměnných build projde, ale aplikace na webu zobrazí
       # "Chybí připojení k Supabase". Radši selžeme hned tady.
+      # VITE_AUTH_EMAIL je nepovinný — bez něj se formulář na e-mail zeptá.
       - name: Zkontrolovat konfiguraci
         env:
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
@@ -37,7 +38,7 @@ jobs:
         run: |
           test -n "$VITE_SUPABASE_URL" || { echo "::error::Chybí repository variable VITE_SUPABASE_URL"; exit 1; }
           test -n "$VITE_SUPABASE_ANON_KEY" || { echo "::error::Chybí repository variable VITE_SUPABASE_ANON_KEY"; exit 1; }
-          test -n "$VITE_AUTH_EMAIL" || { echo "::error::Chybí repository variable VITE_AUTH_EMAIL"; exit 1; }
+          test -n "$VITE_AUTH_EMAIL" || echo "::warning::VITE_AUTH_EMAIL není nastavený, přihlášení se zeptá na e-mail."
 
       - run: npm run build
         env:
